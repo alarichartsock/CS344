@@ -42,7 +42,7 @@ struct movie *createMovie(char *currLine) {
 
     // Retrieve and store the year of the movie
     token = strtok_r(NULL, ",,", &saveptr);
-    currMovie->year = calloc(1, sizeof(int));
+    currMovie->year = malloc(1*sizeof(int));
     *currMovie->year = atoi(token);
 
     // Retrieve the list of languages of the movie
@@ -142,7 +142,6 @@ struct movie *processFile(char *filePath) {
 
     printf("Processed file %s and parsed data for %d movies. \n\n", filePath,numMovies);
     free(currLine);
-
     fclose(movieFile);
     return head;
 }
@@ -213,7 +212,7 @@ void processInput(struct movie *list) {
             while (list != NULL) {
                 if(yeartorating[*list->year-1900] < *list->rating) {
                     yeartorating[*list->year-1900] = *list->rating;
-                    yeartoname[*list->year-1900] = list->name;
+                    strcpy(yeartoname[*list->year-1900],list->name);
                 }
                 list = list->next;
             }
@@ -227,6 +226,10 @@ void processInput(struct movie *list) {
                 if(rating > 0.1) {
                     printf("%d %1.1f %s \n",year,rating,name);
                 }
+            }
+
+            for (int i=0;i<122;i++) {
+                free(yeartoname[i]);
             }
             printf("\n");
 
@@ -252,10 +255,10 @@ void processInput(struct movie *list) {
                 }
                 list = list->next;
             }
-            printf("\n")
-
+            printf("\n");
             // Resets the list variable to the start of the linked list
             list = tmp;
+
         } else if(input == 4) { // Exit the program. Happens automatically with no instruction. 
             //pass
         }
@@ -277,6 +280,22 @@ int main(int argc, char *argv[] )
     // Open file provided in arguments with read access
     struct movie *head = processFile(argv[1]);
     processInput(head);
+
+    struct movie *list = head;
+
+    while (list != NULL) {
+        struct movie *old = list;
+        list = list->next;
+        free(old->year);
+        free(old->name);
+        for (int i=0;i<5;i++) {
+            if(old->languages[i] != NULL) {
+                free(old->languages[i]);
+            }
+        }
+        free(old->rating);
+        free(old);
+    }
 
     return 0;
 }
