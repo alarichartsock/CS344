@@ -246,16 +246,24 @@ void processInput(struct movie *list) {
             // Saves the head of the linked list for future use
             struct movie *tmp = list;
 
+
+            int languagesmatched = 0;
+
             // Iterates through the list of movies, printing off the year and name if it matches the input stored in inputlanguage
             while (list != NULL) {
                 for(int i=0;i<5;i++) {
                     if (strcmp(inputlanguage,list->languages[i]) == 0) {
                         printf("%d %s \n",*list->year,list->name);
+                        languagesmatched++;
                     }
                 }
                 list = list->next;
             }
             printf("\n");
+            if(languagesmatched == 0) {
+                printf("No data about movies released in %s \n", inputlanguage);
+            }
+
             // Resets the list variable to the start of the linked list
             list = tmp;
 
