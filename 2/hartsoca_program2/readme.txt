@@ -1,11 +1,11 @@
 How to compile:
 
-$ gcc -o movies_by_year movies.c
+$ gcc --std=gnu99 -o movies_by_year movies.c
 $ /path/to/executable/movies
 
 Example:
 
-$ gcc -o movies_by_year movies.c
+$ gcc --std=gnu99 -o movies_by_year movies.c
 $ /path/to/executable/movies
 
 If it doesn't compile or if you have any questions then email me at hartsoca@oregonstate.edu. 
