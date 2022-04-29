@@ -65,9 +65,9 @@ title "CS344 Program 3 Grading Script"
 cleanup
 
 header 5 "comments"
-smallsh "# i am a comment
+smallsh "# i am a comment"
 
-#so am i" | grep -qP '.+' # /.+/ regex matches any output
+"#so am i" | grep -qP '.+' # /.+/ regex matches any output
 if [ $? -eq 1 ]; then
   pass "comments are not printed"
   POINTS=$((POINTS + 5))
