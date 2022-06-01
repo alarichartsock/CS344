@@ -16,7 +16,7 @@ int main(int argc, char *argv[]) {
 	}
 
 	// Range of random characters that we want to use
-	const char charset[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	const char charset[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ ";
 
 	// Allocates a string with the size of the keylength + the null terminator
 	char *str = malloc(keylen+1);
@@ -28,10 +28,11 @@ int main(int argc, char *argv[]) {
 	for(int i=0; i<keylen; i++) {
 		int randnum = rand() % (sizeof charset - 1);
 		str[i] = charset[randnum];
-		str[i+1] = '\0'; // Adds a null terminator. If there is more characters then it is overwritten, and if it is the end of the string then it stays
+		str[i+1] = '\n'; // Adds a newline. If there is more characters then it is overwritten, and if it is the end of the string then it stays
+		str[i+2] = '\0'; // Adds a null terminator. If there is more characters then it is overwritten, and if it is the end of the string then it stays
 	}
 
-	printf("%s",str); // Prints to standard out for redirection purposes
+	printf("%s",str); // Prints to standard output for redirection purposes
 
 	return 0;
 }
